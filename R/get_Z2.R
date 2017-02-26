@@ -4,9 +4,7 @@
 #' @param exogensous is the exogenous variables part of the data
 #' @param lags is the number of lags in levels
 #'
-#' @importFrom stats lag
-#'
-#' @return Z2
+#' @return Z2 - an xts object
 
 get_Z2 <- function(endogenous, exogenous, lags) {
 
@@ -15,7 +13,7 @@ get_Z2 <- function(endogenous, exogenous, lags) {
 
     if(!is.null(exogenous)) {
       D_exogenous   <- diff(exogenous)
-      D_exogenous_1 <- lag(D_exogenous_1, k = 1, na.pad = TRUE)
+      D_exogenous_1 <- stats::lag(D_exogenous_1, k = 1, na.pad = TRUE)
       Z2            <- merge(Z2, D_exogenous_1)
     }
 

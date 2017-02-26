@@ -1,14 +1,18 @@
 #' @title Get Z1
 #'
-#' @importFrom stats lag
+#' @param endogenous an xts object with the endogenous variables
+#' @param exogenous an xts object with the exogenous variables
+#' @param restricted an xts object with the exogenous variables
+#'                   that are restricted to lie in the cointegration space
+#' @param lags the number of lags in levels in the model
 #'
-#' @return Z1
+#' @return Z1 - an xts object
 
 get_Z1 <- function(endogenous, exogenous, restricted, lags) {
   Z1 <- lag(endogenous)
 
   if(!is.null(restricted)){
-    restricted_1 <- lag(restricted,1)
+    restricted_1 <- stats::lag(restricted,1)
     Z1 <- cbind(Z1,restricted_1)
   }
 

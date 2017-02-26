@@ -8,8 +8,10 @@ get_Z0(endogenous, lags)
 }
 \arguments{
 \item{endogenous}{is the endogenous variables part of the data set}
+
+\item{lags}{is the number of lags in levels in the model}
 }
 \value{
-Z0
+Z0 - an xts object
 }
 

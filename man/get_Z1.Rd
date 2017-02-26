@@ -6,7 +6,17 @@
 \usage{
 get_Z1(endogenous, exogenous, restricted, lags)
 }
+\arguments{
+\item{endogenous}{an xts object with the endogenous variables}
+
+\item{exogenous}{an xts object with the exogenous variables}
+
+\item{restricted}{an xts object with the exogenous variables
+that are restricted to lie in the cointegration space}
+
+\item{lags}{the number of lags in levels in the model}
+}
 \value{
-Z1
+Z1 - an xts object
 }
 

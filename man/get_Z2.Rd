@@ -14,6 +14,6 @@ get_Z2(endogenous, exogenous, lags)
 \item{exogensous}{is the exogenous variables part of the data}
 }
 \value{
-Z2
+Z2 - an xts object
 }
 
