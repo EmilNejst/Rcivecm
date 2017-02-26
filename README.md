@@ -1,3 +1,6 @@
+## Disclaimer
+This package is in a very early development fase and does not yet provide any useful functionality.  
+
 # Rcivecm
 A cointegration package for R.
 
