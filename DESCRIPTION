@@ -2,15 +2,20 @@ Package: Rcivecm
 Type: Package
 Title: Cointegration Analysis With R
 Version: 0.1.0
-Author: Andreas Noack Jensen, Emil Nejstgaard
+Author: Andreas Noack Jensen, Emil Nejstgaard and Rasmus Varneskov
 Maintainer: Emil Nejstgaard <enejst@gmail.com>
 Description: The package facilitates cointegration analysis
-             using R. The approach is guided by the work of
-             Søren Johansen and Katarina Juselius on carefully
-             modeling systems of non-stationary, cointegrated 
-             variables.
+    using R. The approach is guided by the work of
+    S?ren Johansen and Katarina Juselius on carefully
+    modeling systems of non-stationary, cointegrated
+    variables.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-Imports: xts, stringr
-Suggests: testthat
+Imports:
+    xts,
+    stringr,
+    stats
+Suggests:
+    testthat
+RoxygenNote: 5.0.1

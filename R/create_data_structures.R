@@ -25,84 +25,32 @@
 #'             the row containing a missing value is deleted.
 #'
 #' @param lags are the number of lags (in levels - not differences) used in the model
-#' @param rank is the cointegration rank for the system.
+#'
+#' @importFrom stats complete.cases
+#' @importFrom stats lag
 #'
 #' @return a \code{model_frame} class holding the relevant data objects for further analysis.
 
 create_data_structures <- function(data, lags = 1) {
-
   # Start by removing poential missing variables
   data <- data[complete.cases(data),]
 
   # Separate data into endogenous, exogenous and restricted exogenous variables
-  variable_names <- colnames(data)
-  endogenous_names <- variable_names[(stringr::str_sub(variable_names,1,2) != 'x_' &&
-                                                stringr::str_sub(variable_names,1,2) != 'xr_')]
-  dimension <- length(endogenous_names)
+  endogenous <- get_endogenous(data)
+  exogenous  <- get_exogenous(data)
+  restricted <- get_restricted(data)
+  dimension  <- ncol(endogenous)
 
-  has_exogenous <- (sum(stringr::str_sub(variable_names,1,2) == 'x_')==0)
-  has_restricted <- (sum(stringr::str_sub(variable_names,1,2) == 'xr_') == 0)
-
-  # Construct Z0, Z1 and Z2
-  endogenous_1 <- lag(endogenous_variables)
-
-  if(has_exogenous_variables) {
-    exogenous_names <- variables_names[stringr::str_sub(variable_names,1,2)=='x_']
-    exogenous <- data[,exogenous_names]
-  }
-
-  if(has_restricted_variables) {
-    restricted_names <- variable_names[stringr::str_sub(variable_names,1,2) == 'xr_']
-    restricted <- data[,restricted_names]
-  }
+  has_exogenous  <- ifelse(is.null(exogenous),1,0)
+  has_restricted <- ifelse(is.null(restricted),1,0)
 
   # Construct Z0
-  endogenous_variables <- data[,endogenous_names]
-  Z0 <- diff(endogenous)
-
-  # Construct Z1
-  Z1 <- lag(endogenous)
-
-  if(has_restricted){
-    restricted_1 <- lag(restricted_variables,1)
-    Z1 <- cbind(Z1,restricted_1)
-  }
-
-  if(has_exogenous) {
-    exogenous_1 <- lag(exogenous,1)
-    Z1 <- cbind(Z1, exogenous_1)
-  }
-
-  # Construct Z2
-  if(lags > 1){
-    Z2 <- lag(Z0,k=1,na.pad = TRUE)
-
-    if(has_exogenous) {
-      D_exogenous <- diff(exogenous)
-      D_exogenous_1 <- lag(D_exogenous_1, k = 1, na.pad = TRUE)
-      Z2 <- merge(Z2, D_exogenous_1)
-    }
-
-    for(i in 3:(lags-1)) {
-      D_endogenous_i <- lag(Z0, k = i-1, na.pad = TRUE)
-
-      Z2 <- merge(Z2, D_endogenous_i)
-      if(has_exogenous){
-        D_exogenous_i <- lag(D_exogenous, k = i -1, na.pad = TRUE)
-        Z2 <- merge(Z2, D_endogenous_i)
-      }
-
-    }
-  }
-
-  # Remove missing values from the beginning of the sample due to
-  # model specification
-  z0 <- Z0[-(1:lags),]
-  Z1 <- Z1[-(1:lags),]
-  Z2 <- Z2[-(1:lags),]
+  Z0 <- get_Z0(endogenous, lags)
+  Z1 <- get_Z1(endogenous, exogenous, restricted, lags)
+  Z2 <- get_Z2(endogensou, exogenous, lags)
 
   # Effective Sample Size
-  T <- nrow(data) - lags
+  T <- nrow(Z0)
 
   # Construct Mij for i=0,1,2 and j = 0,1,2
   M00 <- (1/T) * t(Z0) %*% Z0
