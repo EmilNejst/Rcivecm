@@ -15,11 +15,11 @@ add_transitory_shock <- function(
 )
 
 {
-  transitory_shock <- xts::xts(rep(0,nrow(data)),index(data))
+  transitory_shock <- xts::xts(rep(0,nrow(data)), zoo::index(data))
   transitory_shock[shock_date] <- 1
   transitory_shock[shock_date] <- -1
 
-  colnames(transitory_shock) <- paste(ifelse(restricted,'xr_','x_','trans_'),
+  colnames(transitory_shock) <- paste(ifelse(restricted,'xr_','x_'),'trans_',
                                       format(shock_date,'%Y%m%d'))
 
   data <- merge(data, transitory_shock)

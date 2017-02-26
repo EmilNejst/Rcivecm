@@ -4,14 +4,14 @@
 \alias{get_Z2}
 \title{Get Z2}
 \usage{
-get_Z2(endogenous, exogenous, lags)
+get_Z2(endogenous, lags, exogenous = NULL)
 }
 \arguments{
 \item{endogenous}{is the endogenous variables part of the data}
 
 \item{lags}{is the number of lags in levels}
 
-\item{exogensous}{is the exogenous variables part of the data}
+\item{exogenous}{is the exogenous variables part of the data}
 }
 \value{
 Z2 - an xts object

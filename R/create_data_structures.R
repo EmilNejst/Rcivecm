@@ -47,7 +47,7 @@ create_data_structures <- function(data, lags = 1) {
   # Construct Z0
   Z0 <- get_Z0(endogenous, lags)
   Z1 <- get_Z1(endogenous, exogenous, restricted, lags)
-  Z2 <- get_Z2(endogensou, exogenous, lags)
+  Z2 <- get_Z2(endogenous, exogenous, lags)
 
   # Effective Sample Size
   T <- nrow(Z0)

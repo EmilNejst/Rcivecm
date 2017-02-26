@@ -6,16 +6,18 @@ Author: Andreas Noack Jensen, Emil Nejstgaard and Rasmus Varneskov
 Maintainer: Emil Nejstgaard <enejst@gmail.com>
 Description: The package facilitates cointegration analysis
     using R. The approach is guided by the work of
-    S?ren Johansen and Katarina Juselius on carefully
+    Soeren Johansen and Katarina Juselius on carefully
     modeling systems of non-stationary, cointegrated
     variables.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
+    stats,
+    utils,
+    zoo,
     xts,
-    stringr,
-    stats
+    stringr
 Suggests:
     testthat
 RoxygenNote: 5.0.1

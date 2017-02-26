@@ -28,6 +28,10 @@
 #'        trend is to be restricted to lie in the cointegration space.
 #'        Default is FALSE.
 #'
+#' @importFrom utils head
+#' @importFrom utils tail
+#' @importFrom zoo index
+#'
 #' @return the input dataset with an added column including a trend
 #'
 #' @export
